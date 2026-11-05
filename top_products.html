@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top Demand Products</title>
+</head>
+<body>
+
+<h2>🔥 Top Demand Products (Prediction)</h2>
+
+<table border="1">
+    <tr>
+        <th>SKU</th>
+        <th>Product Name</th>
+        <th>Total Sold</th>
+        <th>Avg Monthly Sales</th>
+        <th>Demand Score</th>
+    </tr>
+
+    {% for _, row in products.iterrows() %}
+    <tr>
+        <td>{{ row.sku }}</td>
+        <td>{{ row.product_name }}</td>
+        <td>{{ row.quantity_sold }}</td>
+        <td>{{ "%.2f"|format(row.avg_monthly_sales) }}</td>
+        <td>{{ "%.2f"|format(row.demand_score) }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="/">⬅ Back to Dashboard</a>
+
+</body>
+</html>

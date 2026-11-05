@@ -1,0 +1,13 @@
+<h2>Predict Product Sales Quantity</h2>
+
+<form method="POST">
+  SKU: <input type="text" name="sku" required><br>
+  Date: <input type="date" name="date" required><br>
+  <button type="submit">Predict</button>
+</form>
+
+{% if prediction %}
+<h3>Predicted Quantity: {{ prediction }}</h3>
+{% endif %}
+
+<a href="/">Back</a>
