@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Next 3 Months Sales Prediction</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <h2>📈 Next 3 Months Sales Prediction</h2>
+
+    <form method="POST">
+        <div class="mb-3">
+            <label>Total Sales Amount (Current Month)</label>
+            <input type="number" name="current_sales"
+                   class="form-control"
+                   step="0.01" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Predict Next 3 Months
+        </button>
+    </form>
+
+    {% if predictions %}
+    <div class="alert alert-success mt-4">
+        <h5>Predicted Sales:</h5>
+        <ul>
+            <li>Next Month: Rs. {{ predictions[0] }}</li>
+            <li>Month +2: Rs. {{ predictions[1] }}</li>
+            <li>Month +3: Rs. {{ predictions[2] }}</li>
+        </ul>
+    </div>
+
+    <canvas id="salesChart" width="400" height="200"></canvas>
+
+    <script>
+        const ctx = document.getElementById('salesChart').getContext('2d');
+
+        const salesChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ months | tojson }},
+                datasets: [{
+                    label: 'Predicted Sales (Rs.)',
+                    data: {{ predictions | tojson }},
+                    fill: false,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+    </script>
+    {% endif %}
+
+    <a href="/dashboard" class="btn btn-secondary mt-3">
+        ⬅ Back to Dashboard
+    </a>
+</div>
+
+</body>
+</html>

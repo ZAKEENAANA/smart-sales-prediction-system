@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Accuracy</title>
+    <style>
+        body { font-family: Arial; padding: 30px; }
+        .card {
+            background: #f2f2f2;
+            padding: 20px;
+            width: 300px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📈 Machine Learning Model Accuracy</h1>
+
+<div class="card">
+    <strong>RMSE:</strong> {{ rmse }}
+</div>
+
+<div class="card">
+    <strong>MAE:</strong> {{ mae }}
+</div>
+
+<div class="card">
+    <strong>R² Score:</strong> {{ r2 }}
+</div>
+
+<a href="/">⬅ Back to Dashboard</a>
+
+</body>
+</html>

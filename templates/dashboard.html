@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .cards { display: flex; gap: 20px; }
+        .card {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+        }
+        canvas { margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+<h1>📊 Admin Dashboard</h1>
+<a href="/model_accuracy">📊 Model Accuracy Metrics</a>
+<a href="/predict_sku_month" class="btn btn-info">
+    🧵 Total Quantity per SKU
+</a>
+<a href="/predict_sku_revenue" class="btn btn-success">
+    💹 Revenue Over Period
+</a>
+<a href="/predict_sku_date" class="btn btn-info">
+    📅 SKU Quantity (By Date)
+</a>
+<a href="/upload_predict_4months" class="btn btn-danger">
+    📤 CSV → 4 Months Sales
+</a>
+<a href="/predict_next_3_months" class="btn btn-dark">
+    📊 Next 3 Months Sales
+</a>
+<a href="/dynamic_price_all_skus" class="btn btn-success">
+    📊 Dynamic Price Prediction - All SKUs
+</a>
+<a href="/master_forecast" class="btn btn-dark">
+    🚀 Master Business Forecast
+</a>
+<div class="cards">
+    <div class="card">
+        <h3>Total Revenue</h3>
+        <p>LKR {{ total_revenue }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Total Orders</h3>
+        <p>{{ total_orders }}</p>
+    </div>
+</div>
+
+<!-- Monthly Sales -->
+<h2>Monthly Sales (LKR)</h2>
+<canvas id="monthlyChart"></canvas>
+
+<!-- Top Products -->
+<h2>Top Demand Products</h2>
+<canvas id="productChart"></canvas>
+
+<!-- Top Customers -->
+<h2>Top Buying Customers</h2>
+<canvas id="customerChart"></canvas>
+
+<script>
+const monthlyData = {{ monthly_sales | default([]) | tojson }};
+const productLabels = {{ product_labels | tojson }};
+const productValues = {{ product_values | tojson }};
+const customerLabels = {{ customer_labels | tojson }};
+const customerValues = {{ customer_values | tojson }};
+
+// Monthly Sales Chart
+new Chart(document.getElementById("monthlyChart"), {
+    type: "line",
+    data: {
+        labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+        datasets: [{
+            label: "Monthly Sales (LKR)",
+            data: monthlyData,
+            borderWidth: 2,
+            tension: 0.3
+        }]
+    }
+});
+
+// Top Products Chart
+new Chart(document.getElementById("productChart"), {
+    type: "bar",
+    data: {
+        labels: productLabels,
+        datasets: [{
+            label: "Quantity Sold",
+            data: productValues
+        }]
+    }
+});
+
+// Top Customers Chart
+new Chart(document.getElementById("customerChart"), {
+    type: "bar",
+    data: {
+        labels: customerLabels,
+        datasets: [{
+            label: "Total Spending (LKR)",
+            data: customerValues
+        }]
+    }
+});
+</script>
+
+</body>
+</html>

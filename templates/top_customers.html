@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top Buying Customers</title>
+</head>
+<body>
+
+<h2>👥 Top Buying Customers (Prediction)</h2>
+
+<table border="1">
+    <tr>
+        <th>Customer Name</th>
+        <th>Total Spent (LKR)</th>
+        <th>Purchase Count</th>
+        <th>Avg Purchase (LKR)</th>
+        <th>Customer Score</th>
+    </tr>
+
+    {% for _, row in customers.iterrows() %}
+    <tr>
+        <td>{{ row.customer_name }}</td>
+        <td>{{ "%.2f"|format(row.total_spent) }}</td>
+        <td>{{ row.purchase_count }}</td>
+        <td>{{ "%.2f"|format(row.avg_purchase) }}</td>
+        <td>{{ "%.2f"|format(row.customer_score) }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="/">⬅ Back to Dashboard</a>
+
+</body>
+</html>

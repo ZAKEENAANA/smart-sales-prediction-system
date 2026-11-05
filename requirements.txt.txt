@@ -1,0 +1,11 @@
+Flask
+gunicorn
+pandas
+numpy
+scikit-learn
+joblib
+matplotlib
+seaborn
+plotly
+mysql-connector-python
+python-dotenv
